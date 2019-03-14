@@ -15,9 +15,9 @@ public class PickupManager : MonoBehaviour
     private List<Transform> m_SpawnLocations;
     private List<Pickup> m_Pickups;
 
-    // Start is called before the first frame update
-    void Awake()
+    public void Init()
     {
+        Debug.Log("PickupManager Awake");
         if (instance == null)
         {
             instance = this;
@@ -62,6 +62,7 @@ public class PickupManager : MonoBehaviour
         {
             weaponPickupLocation = m_SpawnLocations[Random.Range(0, m_SpawnLocations.Count - 1)];
             GameObject newPickup = Instantiate(weaponPickup, weaponPickupLocation.position, weaponPickupLocation.rotation);
+            newPickup.transform.localScale = GameManager.instance.gameScale;
             m_Pickups.Add(newPickup.GetComponent<Pickup>());
         }
 
@@ -76,6 +77,7 @@ public class PickupManager : MonoBehaviour
             }
 
             GameObject newPickup = Instantiate(healthPickup, healthPickupLocation.position, healthPickupLocation.rotation);
+            newPickup.transform.localScale = GameManager.instance.gameScale;
             m_Pickups.Add(newPickup.GetComponent<Pickup>());
         }
     }
